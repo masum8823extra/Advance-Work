@@ -1,0 +1,2856 @@
+# Artificial Intelligence Lab — Zero to Basic Bangla Notes
+
+> **Purpose:** এই README এমনভাবে লেখা হয়েছে যেন AI/ML সম্পর্কে আমার basic একদম zero হলেও এখান থেকে ধীরে ধীরে বুঝতে পারি এবং Lab-এর code নিজে লিখতে পারি।
+
+---
+
+# 1. Artificial Intelligence (AI) কী?
+
+সহজ ভাষায়,
+
+**AI = Computer/Machine-কে এমনভাবে তৈরি করা যাতে সে মানুষের মতো কিছু intelligent কাজ করতে পারে।**
+
+যেমন:
+
+* মানুষের কথা বুঝতে পারা
+* ছবি চিনতে পারা
+* সিদ্ধান্ত নেওয়া
+* Prediction করা
+* Problem solve করা
+* কোনো data দেখে pattern খুঁজে বের করা
+
+### Example
+
+ধরো, আমরা computer-কে অনেক student's data দিলাম:
+
+| Study Hours | Attendance | Result    |
+| ----------: | ---------: | --------- |
+|           2 |        60% | Fail      |
+|           4 |        75% | Pass      |
+|           6 |        85% | Pass      |
+|           8 |        95% | Excellent |
+
+Computer এই data দেখে pattern শিখতে পারে।
+
+তারপর নতুন একজন student-এর:
+
+```text
+Study Hours = 5
+Attendance = 80%
+```
+
+দিলে computer অনুমান করতে পারে:
+
+```text
+Result = Pass
+```
+
+এটাই AI-এর একটি simple example।
+
+Source অনুযায়ী AI হলো এমন machine তৈরি করার field যা human intelligence-এর প্রয়োজন হয় এমন কাজ করতে পারে।
+
+---
+
+# 2. AI, ML, Neural Network এবং Deep Learning
+
+এই চারটা বিষয় প্রথমে confusing লাগবে।
+
+সবচেয়ে সহজভাবে hierarchy:
+
+```text
+AI
+└── ML
+    └── Neural Network
+        └── Deep Learning
+```
+
+অর্থাৎ:
+
+**AI → ML → Neural Network → Deep Learning**
+
+---
+
+## 2.1 AI
+
+AI হলো সবচেয়ে বড় field।
+
+এর মধ্যে এমন সব technique থাকে যার মাধ্যমে computer intelligent কাজ করতে পারে।
+
+Example:
+
+```text
+AI
+├── Machine Learning
+├── Neural Networks
+├── Expert Systems
+├── Natural Language Processing
+└── Computer Vision
+```
+
+---
+
+# 3. Machine Learning (ML)
+
+**Machine Learning হলো AI-এর একটি অংশ।**
+
+এখানে computer-কে প্রতিটি rule manually লিখে দিতে হয় না।
+
+বরং তাকে **data দেওয়া হয়**, এবং data থেকে সে pattern শেখে।
+
+### Traditional Programming
+
+আমরা যদি বলি:
+
+```text
+যদি marks >= 40
+    তাহলে Pass
+নাহলে
+    Fail
+```
+
+এখানে rule আমরা নিজেরাই লিখেছি।
+
+### Machine Learning
+
+ML-এ আমরা অনেক example data দেব:
+
+```text
+Marks     Result
+30        Fail
+35        Fail
+45        Pass
+60        Pass
+80        Pass
+```
+
+Machine এই data থেকে pattern শেখার চেষ্টা করবে।
+
+তারপর নতুন marks দিলে prediction করবে।
+
+---
+
+# 4. Neural Network কী?
+
+Neural Network হলো ML-এর একটি technique।
+
+এটি মানুষের brain-এর neuron-এর idea থেকে inspired।
+
+সহজভাবে:
+
+```text
+Input
+  ↓
+Neuron Layer
+  ↓
+Neuron Layer
+  ↓
+Output
+```
+
+যেমন student result prediction:
+
+```text
+Study Hours ─────┐
+                 ├──> Neural Network ──> Result
+Attendance ──────┤
+                 │
+Previous Marks ──┘
+```
+
+Neural Network input data নিয়ে বিভিন্ন layer-এর মাধ্যমে process করে output দেয়।
+
+---
+
+# 5. Deep Learning (DL)
+
+Deep Learning হলো Neural Network-এর একটি advanced form যেখানে **অনেকগুলো hidden layer** থাকে।
+
+```text
+Input
+ ↓
+Hidden Layer
+ ↓
+Hidden Layer
+ ↓
+Hidden Layer
+ ↓
+Output
+```
+
+অনেক layer থাকার কারণে একে **Deep Learning** বলা হয়।
+
+Deep Learning complex কাজের ক্ষেত্রে খুব useful, যেমন:
+
+* Image Recognition
+* Speech Recognition
+* Natural Language Processing
+
+Source-এও DL-কে multiple hidden layers-যুক্ত neural network হিসেবে ব্যাখ্যা করা হয়েছে।
+
+---
+
+# 6. এই Lab-এ আসলে কী শিখব?
+
+এই lab-এর মূল focus এখনো বড় কোনো AI model বানানো না।
+
+বরং AI-এর আগে যে সবচেয়ে important কাজ করতে হয়:
+
+> **Data নিয়ে কাজ করা।**
+
+Lab-এ মূলত আমরা শিখব:
+
+```text
+Dataset
+   ↓
+Load
+   ↓
+Understand
+   ↓
+Clean
+   ↓
+Transform
+   ↓
+Scale
+   ↓
+Filter
+   ↓
+AI/ML Model-এর জন্য প্রস্তুত
+```
+
+এই process-এর সবচেয়ে গুরুত্বপূর্ণ অংশ হলো:
+
+# Data Preprocessing
+
+---
+
+# 7. Data কী?
+
+Data মানে হলো information।
+
+Example:
+
+```text
+Name = Alice
+Age = 25
+Salary = 50000
+```
+
+আর অনেকগুলো data একসাথে থাকলে আমরা dataset পাই।
+
+Example:
+
+| Name    | Age | Salary |
+| ------- | --: | -----: |
+| Alice   |  25 |  50000 |
+| Bob     |  30 |  60000 |
+| Charlie |  35 |  70000 |
+
+---
+
+# 8. Dataset কী?
+
+অনেকগুলো related data একসাথে থাকলে তাকে dataset বলা হয়।
+
+যেমন student dataset:
+
+| Name | Age | Marks | Result |
+| ---- | --: | ----: | ------ |
+| A    |  20 |    80 | Pass   |
+| B    |  21 |    45 | Pass   |
+| C    |  20 |    30 | Fail   |
+
+এখানে:
+
+* প্রতিটি **row** = একটি student's record
+* প্রতিটি **column** = একটি feature/information
+
+---
+
+# 9. Data Preprocessing কী?
+
+Raw data সরাসরি AI model-এ দেওয়া সবসময় ভালো হয় না।
+
+কারণ data-এর মধ্যে থাকতে পারে:
+
+* Missing value
+* Duplicate data
+* Wrong data
+* Text/category
+* Different numerical scales
+
+তাই model-এর আগে data clean এবং prepare করতে হয়।
+
+এই কাজকে বলা হয়:
+
+# Data Preprocessing
+
+সহজ flow:
+
+```text
+Raw Data
+   ↓
+Data Cleaning
+   ↓
+Data Transformation
+   ↓
+Feature Selection
+   ↓
+Feature Scaling
+   ↓
+Ready for ML
+```
+
+Source অনুযায়ী preprocessing হলো raw data-কে clean এবং structured format-এ transform করার process।
+
+---
+
+# 10. Data Cleaning
+
+Data Cleaning মানে data-এর সমস্যা ঠিক করা।
+
+যেমন:
+
+```text
+Age = 20
+Age = 21
+Age = NULL
+Age = 22
+Age = 20
+```
+
+এখানে:
+
+* NULL → Missing value
+* একই row একাধিকবার থাকলে → Duplicate
+
+এগুলো handle করতে হবে।
+
+---
+
+# 11. Missing Value কী?
+
+যখন কোনো data পাওয়া যায় না তখন সেটি missing value।
+
+Example:
+
+| Name  | Age | Salary |
+| ----- | --: | -----: |
+| Alice |  25 |  50000 |
+| Bob   |  30 |  60000 |
+| Emma  |  45 |    NaN |
+
+এখানে Emma-এর salary নেই।
+
+Pandas সাধারণত এটাকে:
+
+```text
+NaN
+```
+
+দিয়ে দেখায়।
+
+NaN-এর অর্থ এখানে value পাওয়া যাচ্ছে না।
+
+---
+
+# 12. Missing Value কীভাবে handle করব?
+
+মূলত তিনভাবে করা যায়।
+
+## Method 1 — Remove
+
+যে row-তে missing value আছে সেটি delete করে দেওয়া।
+
+```python
+df.dropna()
+```
+
+Example:
+
+```text
+Alice   25   50000
+Bob     30   60000
+Emma    45   NaN
+```
+
+`dropna()` করলে Emma-এর row বাদ যেতে পারে।
+
+---
+
+## Method 2 — Fill
+
+Missing জায়গায় একটি suitable value বসানো।
+
+যেমন mean:
+
+```python
+df.fillna(df.mean())
+```
+
+ধরো:
+
+```text
+Salary:
+50000
+60000
+NaN
+80000
+```
+
+Mean:
+
+```text
+(50000 + 60000 + 80000) / 3
+= 63333.33
+```
+
+তাহলে NaN-এর জায়গায় প্রায়:
+
+```text
+63333.33
+```
+
+বসানো যায়।
+
+---
+
+## Method 3 — Interpolation
+
+আগের এবং পরের value দেখে missing value estimate করা।
+
+সহজভাবে:
+
+```text
+10
+20
+?
+40
+50
+```
+
+এখানে মাঝের value অনুমান করে:
+
+```text
+30
+```
+
+ধরা যেতে পারে।
+
+---
+
+# 13. Categorical Data vs Numerical Data
+
+এটা খুব important।
+
+## Numerical Data
+
+যে data number দিয়ে প্রকাশ করা যায়।
+
+Example:
+
+```text
+Age = 25
+Salary = 50000
+Height = 5.8
+Marks = 85
+```
+
+এগুলো numerical।
+
+---
+
+## Categorical Data
+
+যে data category বা group বোঝায়।
+
+Example:
+
+```text
+Gender = Male
+City = Dhaka
+Color = Red
+Species = Setosa
+```
+
+এগুলো categorical।
+
+Source-এ categorical data-কে categories বোঝানো non-numeric data এবং numerical data-কে measurable numbers হিসেবে আলাদা করা হয়েছে।
+
+---
+
+# 14. Encoding কী?
+
+Machine Learning model সাধারণত numerical data নিয়ে কাজ করতে বেশি স্বাচ্ছন্দ্যবোধ করে।
+
+কিন্তু dataset-এ যদি থাকে:
+
+```text
+Male
+Female
+```
+
+তাহলে এগুলোকে number-এ convert করতে হতে পারে।
+
+এই conversion হলো:
+
+# Encoding
+
+---
+
+# 15. Label Encoding
+
+প্রতিটি category-কে একটি number দেওয়া হয়।
+
+Example:
+
+```text
+Male   → 0
+Female → 1
+```
+
+আর species:
+
+```text
+setosa     → 0
+versicolor → 1
+virginica  → 2
+```
+
+Python:
+
+```python
+from sklearn.preprocessing import LabelEncoder
+
+encoder = LabelEncoder()
+
+df["species"] = encoder.fit_transform(df["species"])
+```
+
+এখানে:
+
+### `LabelEncoder()`
+
+একটি encoder তৈরি করছে।
+
+### `fit_transform()`
+
+দুইটি কাজ একসাথে করছে:
+
+```text
+fit
++
+transform
+```
+
+অর্থাৎ category চিনছে এবং তারপর number-এ convert করছে।
+
+Source-এর Iris example-এ `species` column-কে LabelEncoder দিয়ে numeric label-এ convert করা হয়েছে।
+
+---
+
+# 16. One-Hot Encoding
+
+আরেকটি encoding method হলো One-Hot Encoding।
+
+ধরো:
+
+```text
+Gender
+------
+Male
+Female
+```
+
+এটা এমন হতে পারে:
+
+| Male | Female |
+| ---: | -----: |
+|    1 |      0 |
+|    0 |      1 |
+
+অর্থাৎ প্রতিটি category-এর জন্য আলাদা binary column তৈরি হয়।
+
+Source-এ One-Hot Encoding এবং Label Encoding দুটো method-ই উল্লেখ করা হয়েছে।
+
+---
+
+# 17. Feature কী?
+
+Dataset-এর প্রতিটি useful input column-কে সহজভাবে feature বলা যায়।
+
+Example:
+
+| Study Hours | Attendance | Previous Marks | Result |
+| ----------: | ---------: | -------------: | ------ |
+|           5 |         80 |             70 | Pass   |
+
+এখানে:
+
+```text
+Study Hours
+Attendance
+Previous Marks
+```
+
+হলো input features।
+
+আর:
+
+```text
+Result
+```
+
+হতে পারে target/output।
+
+---
+
+# 18. Feature Selection
+
+Dataset-এ অনেক column থাকতে পারে।
+
+কিন্তু সব column model-এর জন্য দরকারি নাও হতে পারে।
+
+তাই useful feature select করা হয়।
+
+এটাই:
+
+# Feature Selection
+
+Example:
+
+```text
+Name
+Age
+Study Hours
+Attendance
+Previous Marks
+Random ID
+```
+
+Prediction-এর জন্য হয়তো:
+
+```text
+Study Hours
+Attendance
+Previous Marks
+```
+
+যথেষ্ট।
+
+তখন প্রয়োজনীয় features select করা হবে।
+
+---
+
+# 19. Feature Scaling
+
+ধরো আমাদের dataset:
+
+```text
+Age = 20
+Salary = 50000
+```
+
+দুটোর scale অনেক different।
+
+একটি:
+
+```text
+20
+```
+
+আরেকটি:
+
+```text
+50000
+```
+
+কিছু ML algorithm-এর জন্য এই difference সমস্যা তৈরি করতে পারে।
+
+তাই numerical values-কে comparable scale-এ আনা হয়।
+
+এটাকে বলে:
+
+# Feature Scaling
+
+Source-এ বলা হয়েছে scaling বড় value-এর domination কমাতে এবং model performance/convergence improve করতে সাহায্য করতে পারে।
+
+---
+
+# 20. Normalization
+
+Normalization-এর একটি common method হলো:
+
+# Min-Max Scaling
+
+এতে value সাধারণত:
+
+```text
+0 থেকে 1
+```
+
+এর মধ্যে নিয়ে আসা হয়।
+
+Formula:
+
+```text
+X' = (X - Min) / (Max - Min)
+```
+
+ধরো:
+
+```text
+Min = 10
+Max = 100
+X = 55
+```
+
+তাহলে:
+
+```text
+(55 - 10) / (100 - 10)
+
+= 45 / 90
+
+= 0.5
+```
+
+অর্থাৎ:
+
+```text
+55 → 0.5
+```
+
+Source-এ Min-Max Scaling-এর এই formula দেওয়া আছে।
+
+---
+
+# 21. Standardization
+
+আরেকটি scaling method হলো:
+
+# Standardization / Z-score Scaling
+
+Formula:
+
+```text
+Z = (X - Mean) / Standard Deviation
+```
+
+এখানে data এমনভাবে transform হয় যাতে:
+
+```text
+Mean ≈ 0
+Standard Deviation ≈ 1
+```
+
+Normalization:
+
+```text
+0 → 1 range
+```
+
+Standardization:
+
+```text
+mean = 0
+std = 1
+```
+
+দুটো এক জিনিস নয়।
+
+---
+
+# 22. এখন আসি Python Libraries-এ
+
+এই Lab-এর সবচেয়ে important তিনটি library:
+
+```text
+NumPy
+Pandas
+Matplotlib
+```
+
+এছাড়া preprocessing-এর জন্য:
+
+```text
+Scikit-learn
+```
+
+---
+
+# 23. NumPy কী?
+
+NumPy = Numerical Python
+
+এটি mainly numerical calculation এবং array/matrix নিয়ে কাজ করার জন্য ব্যবহার করা হয়।
+
+Import:
+
+```python
+import numpy as np
+```
+
+এখানে:
+
+```text
+numpy
+```
+
+library-এর নাম।
+
+আর:
+
+```text
+np
+```
+
+হলো তার short name।
+
+তাই:
+
+```python
+np.array()
+```
+
+মানে NumPy-এর array function ব্যবহার করা।
+
+---
+
+# 24. NumPy Array কী?
+
+সাধারণ Python list:
+
+```python
+numbers = [1, 2, 3, 4, 5]
+```
+
+NumPy:
+
+```python
+arr = np.array([1, 2, 3, 4, 5])
+```
+
+Array numerical operation-এর জন্য খুব useful।
+
+---
+
+# 25. `np.arange()`
+
+Source code:
+
+```python
+arr = np.arange(1, 13)
+```
+
+এটা তৈরি করবে:
+
+```text
+1 2 3 4 5 6 7 8 9 10 11 12
+```
+
+মনে রাখবে:
+
+```python
+np.arange(start, stop)
+```
+
+এখানে `stop` সাধারণত include হয় না।
+
+তাই:
+
+```python
+np.arange(1, 13)
+```
+
+মানে:
+
+```text
+1 থেকে 12
+```
+
+---
+
+# 26. `reshape()`
+
+ধরো array:
+
+```text
+1 2 3 4 5 6 7 8 9 10 11 12
+```
+
+এতে মোট:
+
+```text
+12 elements
+```
+
+এখন:
+
+```python
+arr.reshape(3, 4)
+```
+
+করলে:
+
+```text
+1  2  3  4
+5  6  7  8
+9 10 11 12
+```
+
+হবে।
+
+অর্থাৎ:
+
+```text
+3 rows
+4 columns
+```
+
+কারণ:
+
+```text
+3 × 4 = 12
+```
+
+### Important
+
+Reshape করার সময় total elements একই থাকতে হবে।
+
+যেমন 12 elements-কে:
+
+```text
+3 × 4
+2 × 6
+4 × 3
+```
+
+করা যাবে।
+
+কিন্তু:
+
+```text
+5 × 3
+```
+
+করা যাবে না।
+
+কারণ:
+
+```text
+5 × 3 = 15
+```
+
+---
+
+# 27. NumPy Matrix
+
+Source:
+
+```python
+A = np.array([[1, 2],
+              [3, 4]])
+
+B = np.array([[5, 6],
+              [7, 8]])
+```
+
+এগুলো 2×2 matrix।
+
+A:
+
+```text
+1 2
+3 4
+```
+
+B:
+
+```text
+5 6
+7 8
+```
+
+---
+
+# 28. Element-wise Multiplication
+
+Code:
+
+```python
+A * B
+```
+
+এখানে একই position-এর value multiply হয়।
+
+```text
+1×5 = 5
+2×6 = 12
+3×7 = 21
+4×8 = 32
+```
+
+Result:
+
+```text
+5   12
+21  32
+```
+
+অর্থাৎ:
+
+```text
+A * B
+```
+
+মানে এখানে element-by-element multiplication।
+
+---
+
+# 29. Matrix Multiplication
+
+Code:
+
+```python
+np.dot(A, B)
+```
+
+এটা সাধারণ element-wise multiplication না।
+
+Matrix multiplication rule অনুযায়ী calculation হয়।
+
+Result:
+
+```text
+19  22
+43  50
+```
+
+যেমন first value:
+
+```text
+(1×5) + (2×7)
+
+= 5 + 14
+
+= 19
+```
+
+---
+
+# 30. Transpose
+
+Code:
+
+```python
+np.transpose(A)
+```
+
+অথবা:
+
+```python
+A.T
+```
+
+Transpose করলে:
+
+Rows ↔ Columns
+
+Original:
+
+```text
+1 2
+3 4
+```
+
+Transpose:
+
+```text
+1 3
+2 4
+```
+
+অর্থাৎ:
+
+```text
+Row → Column
+Column → Row
+```
+
+---
+
+# 31. Mean
+
+Mean মানে সাধারণ average।
+
+Data:
+
+```text
+10, 20, 30, 40, 50
+```
+
+Mean:
+
+```text
+(10+20+30+40+50) / 5
+
+= 150 / 5
+
+= 30
+```
+
+Python:
+
+```python
+np.mean(data)
+```
+
+---
+
+# 32. Median
+
+Median হলো sorted data-এর middle value।
+
+Example:
+
+```text
+10, 20, 30, 40, 50
+```
+
+Middle:
+
+```text
+30
+```
+
+তাই:
+
+```python
+np.median(data)
+```
+
+দিলে:
+
+```text
+30
+```
+
+---
+
+# 33. Standard Deviation
+
+Standard deviation বলে data values average-এর আশেপাশে কতটা spread করেছে।
+
+সহজভাবে:
+
+```text
+Low Standard Deviation
+→ values কাছাকাছি
+
+High Standard Deviation
+→ values বেশি ছড়ানো
+```
+
+Python:
+
+```python
+np.std(data)
+```
+
+---
+
+# 34. Variance
+
+Variance-ও data কতটা spread করেছে তা measure করে।
+
+Python:
+
+```python
+np.var(data)
+```
+
+Relationship:
+
+```text
+Variance = Standard Deviation²
+```
+
+---
+
+# 35. Pandas কী?
+
+Pandas হলো Python-এর একটি library যা mainly:
+
+* Dataset load
+* Table/data handling
+* Filtering
+* Cleaning
+* Analysis
+
+এর জন্য ব্যবহার হয়।
+
+Import:
+
+```python
+import pandas as pd
+```
+
+এখানে:
+
+```text
+pd
+```
+
+হলো Pandas-এর short name।
+
+---
+
+# 36. DataFrame কী?
+
+Pandas-এর সবচেয়ে important concept:
+
+# DataFrame
+
+সহজভাবে:
+
+> DataFrame = Python-এর ভিতরে Excel table-এর মতো structure।
+
+Example:
+
+```text
+Name     Age     Salary
+Alice    25      50000
+Bob      30      60000
+Charlie  35      70000
+```
+
+এটাই DataFrame-এর মতো।
+
+---
+
+# 37. DataFrame তৈরি করা
+
+Source:
+
+```python
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie', 'David', 'Emma'],
+    'Age': [25, 30, 35, 40, 45],
+    'Salary': [50000, 60000, 70000, 80000, None]
+}
+
+df = pd.DataFrame(data)
+```
+
+এখানে:
+
+```text
+data
+```
+
+একটি Python dictionary।
+
+তারপর:
+
+```python
+pd.DataFrame(data)
+```
+
+dictionary-কে table/DataFrame বানাচ্ছে।
+
+---
+
+# 38. `df` কী?
+
+এখানে:
+
+```python
+df = pd.DataFrame(data)
+```
+
+আমরা DataFrame-টাকে:
+
+```text
+df
+```
+
+নামে রেখেছি।
+
+`df` কোনো special keyword না।
+
+আমরা চাইলে:
+
+```python
+table = pd.DataFrame(data)
+```
+
+ও লিখতে পারতাম।
+
+কিন্তু সাধারণভাবে:
+
+```text
+df = DataFrame
+```
+
+হিসেবে সবাই ব্যবহার করে।
+
+---
+
+# 39. Data Filtering
+
+Source:
+
+```python
+filtered_df = df[df['Age'] > 30]
+```
+
+এটার মানে:
+
+> যাদের Age 30-এর বেশি, শুধু তাদের rows রাখো।
+
+যেমন:
+
+```text
+Alice    25
+Bob      30
+Charlie  35
+David    40
+Emma     45
+```
+
+Filter:
+
+```text
+Age > 30
+```
+
+তাহলে:
+
+```text
+Charlie
+David
+Emma
+```
+
+থাকবে।
+
+---
+
+# 40. New Column তৈরি করা
+
+Source:
+
+```python
+df['Bonus'] = df['Salary'] * 0.1
+```
+
+এখানে:
+
+```text
+Salary × 10%
+```
+
+হিসেবে Bonus তৈরি হচ্ছে।
+
+যেমন:
+
+```text
+Salary = 50000
+
+Bonus = 50000 × 0.1
+      = 5000
+```
+
+তাই table:
+
+```text
+Name      Salary    Bonus
+Alice     50000     5000
+Bob       60000     6000
+```
+
+হবে।
+
+---
+
+# 41. Matplotlib কী?
+
+Matplotlib হলো Python-এর একটি visualization library।
+
+সহজভাবে:
+
+> Data-কে graph/chart আকারে দেখানোর জন্য Matplotlib ব্যবহার করা হয়।
+
+Import:
+
+```python
+import matplotlib.pyplot as plt
+```
+
+এখানে:
+
+```text
+plt
+```
+
+হলো `matplotlib.pyplot`-এর short name।
+
+---
+
+# 42. Bar Chart
+
+Bar chart দিয়ে category অনুযায়ী value compare করা যায়।
+
+Source:
+
+```python
+names = ['Alice', 'Bob', 'Charlie', 'David']
+scores = [85, 90, 95, 88]
+```
+
+মানে:
+
+```text
+Alice   → 85
+Bob     → 90
+Charlie → 95
+David   → 88
+```
+
+তারপর:
+
+```python
+plt.bar(names, scores)
+```
+
+দিলে bar chart তৈরি হবে।
+
+---
+
+# 43. Graph-এর Labels
+
+```python
+plt.xlabel("Students")
+```
+
+X-axis-এর নাম।
+
+```python
+plt.ylabel("Scores")
+```
+
+Y-axis-এর নাম।
+
+```python
+plt.title("Student Scores Bar Chart")
+```
+
+Graph-এর title।
+
+শেষে:
+
+```python
+plt.show()
+```
+
+graph দেখায়।
+
+---
+
+# 44. Line Plot
+
+Line plot-এ points line দিয়ে connect করা হয়।
+
+Example:
+
+```python
+x = np.array([1, 2, 3, 4, 5])
+y = np.array([2, 4, 6, 8, 10])
+```
+
+তারপর:
+
+```python
+plt.plot(x, y)
+```
+
+এতে:
+
+```text
+1 → 2
+2 → 4
+3 → 6
+4 → 8
+5 → 10
+```
+
+এর relationship graph-এ দেখা যাবে।
+
+---
+
+# 45. Scatter Plot
+
+Scatter plot-এ individual points হিসেবে data দেখানো হয়।
+
+```python
+plt.scatter(x, y)
+```
+
+এটি useful যখন আমরা দুইটি variable-এর relationship দেখতে চাই।
+
+যেমন:
+
+```text
+Study Hours vs Marks
+```
+
+প্রতিটি student একটি point হতে পারে।
+
+---
+
+# 46. Dataset Import করা
+
+AI/ML-এর জন্য আমাদের real dataset দরকার।
+
+Dataset আসতে পারে:
+
+```text
+CSV file
+URL
+Database
+Excel
+```
+
+Pandas দিয়ে CSV read করা যায়:
+
+```python
+pd.read_csv()
+```
+
+---
+
+# 47. URL থেকে Dataset Load
+
+Source-এর Iris dataset:
+
+```python
+url = "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv"
+
+df = pd.read_csv(url)
+```
+
+এখানে:
+
+```text
+url
+```
+
+এর মধ্যে dataset-এর address রাখা হয়েছে।
+
+তারপর:
+
+```python
+pd.read_csv(url)
+```
+
+dataset পড়ছে।
+
+---
+
+# 48. Iris Dataset কী?
+
+Iris একটি flower dataset।
+
+এতে সাধারণত flower-এর measurements এবং species থাকে।
+
+Columns:
+
+```text
+sepal_length
+sepal_width
+petal_length
+petal_width
+species
+```
+
+Source example-এ dataset-এর shape:
+
+```text
+150 rows
+5 columns
+```
+
+ছিল।
+
+---
+
+# 49. `head()` কী?
+
+Code:
+
+```python
+df.head()
+```
+
+Dataset-এর প্রথম 5 rows দেখায়।
+
+যদি:
+
+```python
+df.head(10)
+```
+
+দিই, তাহলে প্রথম 10 rows দেখতে পারব।
+
+Default:
+
+```text
+5 rows
+```
+
+---
+
+# 50. `shape` কী?
+
+Code:
+
+```python
+df.shape
+```
+
+dataset-এর:
+
+```text
+(rows, columns)
+```
+
+দেয়।
+
+Iris:
+
+```text
+(150, 5)
+```
+
+মানে:
+
+```text
+150 rows
+5 columns
+```
+
+---
+
+# 51. সব rows দেখানো
+
+Pandas বড় dataset হলে সব rows automatically দেখায় না।
+
+সব rows দেখাতে:
+
+```python
+pd.set_option('display.max_rows', None)
+```
+
+তারপর:
+
+```python
+print(df)
+```
+
+শেষে চাইলে setting reset করা যায়:
+
+```python
+pd.reset_option('display.max_rows')
+```
+
+---
+
+# 52. সব columns দেখানো
+
+```python
+pd.set_option('display.max_columns', None)
+```
+
+এতে সব columns display করা যাবে।
+
+Reset:
+
+```python
+pd.reset_option('display.max_columns')
+```
+
+---
+
+# 53. Data Exploration
+
+Dataset পাওয়ার পর সরাসরি model বানানো উচিত না।
+
+প্রথমে dataset বুঝতে হবে।
+
+এটাকে বলা যায়:
+
+# Data Exploration
+
+আমরা জানতে চাই:
+
+```text
+কত rows?
+কত columns?
+কোন data type?
+Missing value আছে?
+Statistics কেমন?
+```
+
+---
+
+# 54. `df.info()`
+
+Code:
+
+```python
+df.info()
+```
+
+এতে dataset সম্পর্কে basic information পাওয়া যায়।
+
+যেমন:
+
+```text
+Number of rows
+Column names
+Non-null count
+Data type
+Memory usage
+```
+
+Iris dataset-এ source output অনুযায়ী 5টি column ছিল, যার 4টি `float64` এবং `species` ছিল `object`।
+
+---
+
+# 55. Data Type
+
+Example:
+
+```text
+float64
+object
+```
+
+### `float64`
+
+Decimal number।
+
+Example:
+
+```text
+5.1
+3.5
+1.4
+```
+
+### `object`
+
+সাধারণত text/string type-এর data।
+
+যেমন:
+
+```text
+setosa
+versicolor
+virginica
+```
+
+---
+
+# 56. `df.describe()`
+
+Code:
+
+```python
+df.describe()
+```
+
+এটি numerical columns-এর statistical summary দেয়।
+
+যেমন:
+
+```text
+count
+mean
+std
+min
+25%
+50%
+75%
+max
+```
+
+---
+
+# 57. এগুলোর অর্থ কী?
+
+## count
+
+কতগুলো valid numerical value আছে।
+
+## mean
+
+Average।
+
+## std
+
+Standard deviation।
+
+## min
+
+সবচেয়ে ছোট value।
+
+## 25%
+
+25th percentile।
+
+## 50%
+
+Median।
+
+## 75%
+
+75th percentile।
+
+## max
+
+সবচেয়ে বড় value।
+
+---
+
+# 58. Missing Value Check
+
+Code:
+
+```python
+df.isnull().sum()
+```
+
+এটা খুব important।
+
+প্রতিটি column-এ কয়টি missing value আছে সেটা দেখায়।
+
+Example:
+
+```text
+Age       0
+Salary    1
+Name      0
+```
+
+মানে:
+
+```text
+Age → missing নেই
+Salary → 1টি missing
+Name → missing নেই
+```
+
+---
+
+# 59. Missing Value তৈরি করে Practice
+
+Source-এ intentionally missing value তৈরি করা হয়েছে:
+
+```python
+df.loc[np.random.choice(df.index, 5), "sepal_width"] = np.nan
+```
+
+এখানে:
+
+```text
+sepal_width
+```
+
+column-এর randomly 5টি row-তে:
+
+```text
+NaN
+```
+
+বসানো হচ্ছে।
+
+তারপর:
+
+```python
+df.isnull().sum()
+```
+
+দিলে:
+
+```text
+sepal_width    5
+```
+
+দেখাবে।
+
+Source-এর exercise-এ ঠিক এইভাবে 5টি missing value simulate করা হয়েছে।
+
+---
+
+# 60. Missing Value Fill করা
+
+Source:
+
+```python
+df["sepal_width"].fillna(
+    df["sepal_width"].mean(),
+    inplace=True
+)
+```
+
+এর concept:
+
+```text
+যেখানে NaN আছে
+        ↓
+sepal_width-এর mean বের করো
+        ↓
+NaN-এর জায়গায় mean বসাও
+```
+
+তারপর:
+
+```python
+df.isnull().sum()
+```
+
+দিলে missing value আর থাকবে না।
+
+---
+
+# 61. `np.random.choice()`
+
+এটা random selection-এর জন্য।
+
+```python
+np.random.choice(df.index, 5)
+```
+
+মানে:
+
+> DataFrame-এর index থেকে random 5টি select করো।
+
+তাই প্রতিবার run করলে কোন 5টি row select হবে সেটা আলাদা হতে পারে।
+
+---
+
+# 62. Duplicate কী?
+
+একই row একাধিকবার থাকলে duplicate।
+
+Example:
+
+```text
+Name    Age
+Alice   20
+Bob     21
+Alice   20
+```
+
+এখানে:
+
+```text
+Alice 20
+```
+
+দুইবার আছে।
+
+তাই একটি duplicate।
+
+---
+
+# 63. Duplicate Check
+
+Code:
+
+```python
+df.duplicated().sum()
+```
+
+এটা মোট কয়টি duplicate row আছে সেটা বলে।
+
+যদি output:
+
+```text
+1
+```
+
+হয়, তাহলে 1টি duplicate আছে।
+
+---
+
+# 64. Duplicate Rows দেখা
+
+```python
+df[df.duplicated()]
+```
+
+এটি duplicate row দেখায়।
+
+এখানে প্রথম occurrence সাধারণত বাদ পড়ে এবং পরের duplicate row দেখানো হয়।
+
+---
+
+# 65. সব Duplicate দেখা
+
+```python
+df[df.duplicated(keep=False)]
+```
+
+এতে duplicate group-এর প্রথম row-সহ সব duplicate rows দেখা যায়।
+
+Example:
+
+```text
+101 → same data
+142 → same data
+```
+
+দুটোই দেখাবে।
+
+Source-এর example-এ 1 duplicate pair পাওয়া গিয়েছিল এবং duplicate remove করার পর shape `(149, 5)` হয়েছিল।
+
+---
+
+# 66. Duplicate Remove
+
+Code:
+
+```python
+df = df.drop_duplicates()
+```
+
+এতে duplicate rows remove হয়ে যাবে।
+
+---
+
+# 67. Encoding করার আগে একটা গুরুত্বপূর্ণ বিষয়
+
+ধরো:
+
+```text
+species
+
+setosa
+versicolor
+virginica
+```
+
+Machine-এর জন্য এগুলোকে numerical representation দিতে পারি:
+
+```text
+setosa     → 0
+versicolor → 1
+virginica  → 2
+```
+
+তারপর model numerical data নিয়ে কাজ করতে পারে।
+
+---
+
+# 68. LabelEncoder পুরো flow
+
+```python
+from sklearn.preprocessing import LabelEncoder
+
+encoder = LabelEncoder()
+
+df["species"] = encoder.fit_transform(df["species"])
+```
+
+এখানে step:
+
+```text
+species
+   ↓
+LabelEncoder
+   ↓
+numeric values
+```
+
+Example:
+
+```text
+setosa     → 0
+versicolor → 1
+virginica  → 2
+```
+
+---
+
+# 69. Scaling-এর Practical Code
+
+Source:
+
+```python
+from sklearn.preprocessing import MinMaxScaler
+
+scaler = MinMaxScaler()
+
+columns_to_scale = [
+    "sepal_length",
+    "petal_length"
+]
+
+df_scaled = df.copy()
+
+df_scaled[columns_to_scale] = scaler.fit_transform(
+    df[columns_to_scale]
+)
+```
+
+এখন line-by-line দেখি।
+
+---
+
+# 70. `MinMaxScaler()`
+
+```python
+scaler = MinMaxScaler()
+```
+
+একটি Min-Max scaler তৈরি করা হলো।
+
+এর কাজ:
+
+```text
+Old values
+    ↓
+0 থেকে 1 range
+```
+
+এ convert করা।
+
+---
+
+# 71. কোন columns scale করব?
+
+```python
+columns_to_scale = [
+    "sepal_length",
+    "petal_length"
+]
+```
+
+এখানে আমরা বলছি:
+
+> শুধু এই দুইটি column scale করব।
+
+---
+
+# 72. `df.copy()`
+
+```python
+df_scaled = df.copy()
+```
+
+এখানে original `df` সরাসরি পরিবর্তন না করে একটি copy তৈরি করা হয়েছে।
+
+অর্থাৎ:
+
+```text
+Original:
+df
+
+Copy:
+df_scaled
+```
+
+তাই experiment করতে সুবিধা হয়।
+
+---
+
+# 73. `fit_transform()`
+
+```python
+scaler.fit_transform(df[columns_to_scale])
+```
+
+এখানে দুইটি কাজ হচ্ছে।
+
+### fit
+
+Data দেখে:
+
+```text
+minimum
+maximum
+```
+
+শিখে নেয়।
+
+### transform
+
+সেই information ব্যবহার করে values scale করে।
+
+অর্থাৎ:
+
+```text
+fit
+↓
+Data-এর min/max বুঝে
+
+transform
+↓
+values 0-1 range-এ convert
+```
+
+দুটো একসাথে:
+
+```text
+fit_transform()
+```
+
+---
+
+# 74. Scaling-এর Output
+
+আগে:
+
+```text
+sepal_length = 5.1
+petal_length = 1.4
+```
+
+Scaling-এর পরে source-এর output-এ এগুলো:
+
+```text
+sepal_length = 0.222222
+petal_length = 0.067797
+```
+
+এর মতো value হয়েছে।
+
+অর্থাৎ original measurement-এর scale বদলে গেছে।
+
+---
+
+# 75. Data Filtering
+
+Filtering মানে dataset থেকে specific condition অনুযায়ী data বের করা।
+
+Example:
+
+```python
+df[df["petal_length"] > 4]
+```
+
+মানে:
+
+> যেসব flower-এর petal length 4-এর বেশি, শুধু সেগুলো দেখাও।
+
+---
+
+# 76. Filtering-এর Logic
+
+ধরো:
+
+```text
+petal_length
+
+1.4
+1.5
+4.7
+4.5
+4.9
+```
+
+Condition:
+
+```python
+petal_length > 4
+```
+
+তাহলে:
+
+```text
+4.7
+4.5
+4.9
+```
+
+থাকবে।
+
+---
+
+# 77. পুরো Lab-এর Master Flow
+
+এখন পুরো বিষয়টাকে একসাথে দেখো:
+
+```text
+                 AI / ML
+                    │
+                    ▼
+                 Dataset
+                    │
+                    ▼
+              Load Dataset
+                    │
+                    ▼
+             Explore Dataset
+                    │
+          ┌─────────┴─────────┐
+          ▼                   ▼
+   Missing Values          Duplicates
+          │                   │
+          ▼                   ▼
+       Handle               Remove
+          │                   │
+          └─────────┬─────────┘
+                    ▼
+            Categorical Data
+                    │
+                    ▼
+                 Encoding
+                    │
+                    ▼
+             Feature Selection
+                    │
+                    ▼
+              Feature Scaling
+                    │
+                    ▼
+               Filtering
+                    │
+                    ▼
+            Ready for ML Model
+```
+
+---
+
+# 78. সবচেয়ে Important Python Functions
+
+এই Lab-এর জন্য প্রথমে এগুলো মনে রাখলেই অনেকটা কাজ হবে:
+
+```python
+np.array()
+np.arange()
+reshape()
+np.dot()
+np.transpose()
+np.mean()
+np.median()
+np.std()
+np.var()
+```
+
+Pandas:
+
+```python
+pd.DataFrame()
+pd.read_csv()
+df.head()
+df.shape
+df.info()
+df.describe()
+df.isnull()
+df.isnull().sum()
+df.dropna()
+df.fillna()
+df.duplicated()
+df.drop_duplicates()
+df.copy()
+```
+
+Visualization:
+
+```python
+plt.bar()
+plt.plot()
+plt.scatter()
+plt.xlabel()
+plt.ylabel()
+plt.title()
+plt.show()
+```
+
+Encoding:
+
+```python
+LabelEncoder()
+fit_transform()
+```
+
+Scaling:
+
+```python
+MinMaxScaler()
+fit_transform()
+```
+
+---
+
+# 79. কোন Library কী কাজ করে?
+
+এটা খুব ভালোভাবে মনে রাখো:
+
+| Library      | Main কাজ                                    |
+| ------------ | ------------------------------------------- |
+| NumPy        | Numerical calculation, Array, Matrix        |
+| Pandas       | Dataset/Table handling                      |
+| Matplotlib   | Graph/Visualization                         |
+| Scikit-learn | ML preprocessing এবং Machine Learning tools |
+
+এক লাইনে:
+
+```text
+NumPy    → Number
+Pandas   → Data/Table
+Matplotlib → Graph
+Sklearn  → ML tools
+```
+
+---
+
+# 80. AI Lab-এ Dataset নিয়ে কাজ করার সাধারণ Pattern
+
+যেকোনো dataset পেলে প্রথমে এই pattern follow করতে পারো:
+
+```python
+import pandas as pd
+
+# 1. Load dataset
+df = pd.read_csv("dataset.csv")
+
+# 2. See first rows
+print(df.head())
+
+# 3. Check shape
+print(df.shape)
+
+# 4. Check information
+print(df.info())
+
+# 5. Check statistics
+print(df.describe())
+
+# 6. Check missing values
+print(df.isnull().sum())
+
+# 7. Check duplicates
+print(df.duplicated().sum())
+```
+
+এরপর প্রয়োজন অনুযায়ী:
+
+```text
+Missing Value Handle
+        ↓
+Duplicate Remove
+        ↓
+Categorical Encoding
+        ↓
+Feature Scaling
+        ↓
+Filtering / Feature Selection
+```
+
+---
+
+# 81. Exam-এর জন্য Short Definitions
+
+## AI
+
+**AI is the field of creating machines that can perform tasks requiring human intelligence.**
+
+সহজে:
+
+> Machine-কে intelligent কাজ করানোর technology/field হলো AI।
+
+---
+
+## Machine Learning
+
+> AI-এর একটি subset যেখানে computer data থেকে pattern শিখে prediction বা decision নেয়।
+
+---
+
+## Deep Learning
+
+> Multiple hidden layers-যুক্ত neural network-based learning method হলো Deep Learning।
+
+---
+
+## Data Preprocessing
+
+> AI/ML model-এর আগে raw data-কে clean, transform এবং prepare করার process হলো data preprocessing।
+
+---
+
+## Data Cleaning
+
+> Missing, duplicate এবং incorrect data handle করার process হলো data cleaning।
+
+---
+
+## Encoding
+
+> Categorical data-কে numerical form-এ convert করার process হলো encoding।
+
+---
+
+## Feature Scaling
+
+> Numerical features-কে comparable scale-এ আনার process হলো feature scaling।
+
+---
+
+## Normalization
+
+> Data-কে সাধারণত 0 থেকে 1 range-এ convert করার scaling technique হলো normalization।
+
+---
+
+## Standardization
+
+> Data-কে mean 0 এবং standard deviation 1-এর কাছাকাছি scale করার technique হলো standardization।
+
+---
+
+## DataFrame
+
+> Pandas-এর table-like data structure হলো DataFrame।
+
+---
+
+# 82. সবচেয়ে Important Differences
+
+## AI vs ML
+
+```text
+AI = বড় field
+ML = AI-এর subset
+```
+
+---
+
+## ML vs DL
+
+```text
+ML = বিভিন্ন learning algorithm-এর broad field
+
+DL = Multiple-layer Neural Network based learning
+```
+
+---
+
+## Numerical vs Categorical
+
+```text
+Numerical = Number
+
+Categorical = Category
+```
+
+Example:
+
+```text
+Age = 20          → Numerical
+
+Gender = Male     → Categorical
+```
+
+---
+
+## Normalization vs Standardization
+
+```text
+Normalization
+→ সাধারণত 0 থেকে 1
+
+Standardization
+→ Mean = 0
+→ Std = 1
+```
+
+---
+
+## Element-wise vs Matrix Multiplication
+
+```text
+A * B
+→ Same position-এর values multiply
+
+np.dot(A, B)
+→ Matrix multiplication
+```
+
+---
+
+# 83. এই পুরো Lab-টা একটা Real-Life Example দিয়ে বুঝি
+
+ধরো তুমি এমন একটা AI বানাবে:
+
+> **Student Pass/Fail Prediction**
+
+তোমার dataset:
+
+| Study Hours | Attendance | Previous Marks | Result |
+| ----------: | ---------: | -------------: | ------ |
+|           2 |         50 |             30 | Fail   |
+|           4 |         70 |             50 | Pass   |
+|           6 |         80 |             65 | Pass   |
+|           8 |         90 |             80 | Pass   |
+
+এখন কী করবে?
+
+### Step 1 — Dataset Load
+
+```text
+CSV → Pandas
+```
+
+### Step 2 — Dataset Understand
+
+```text
+head()
+shape
+info()
+describe()
+```
+
+### Step 3 — Missing Value Check
+
+```text
+isnull().sum()
+```
+
+### Step 4 — Duplicate Check
+
+```text
+duplicated()
+```
+
+### Step 5 — Categorical Data
+
+যদি:
+
+```text
+Gender = Male/Female
+```
+
+থাকে:
+
+```text
+Encoding
+```
+
+করব।
+
+### Step 6 — Scaling
+
+যদি কোনো feature-এর value অনেক বড় হয়:
+
+```text
+Feature Scaling
+```
+
+করতে পারি।
+
+### Step 7 — Features এবং Target
+
+```text
+Study Hours
+Attendance
+Previous Marks
+```
+
+হবে input features।
+
+```text
+Result
+```
+
+হবে target।
+
+### Step 8 — এরপর
+
+এই prepared data Machine Learning model-এ দেওয়া যাবে।
+
+---
+
+# 84. Beginner হিসেবে এখন কী কী মুখস্থ করবে?
+
+সব formula মুখস্থ করার আগে **concept বুঝবে**।
+
+এই order-এ শিখবে:
+
+```text
+1. Python Basic
+      ↓
+2. NumPy
+      ↓
+3. Pandas
+      ↓
+4. Matplotlib
+      ↓
+5. Dataset
+      ↓
+6. Data Preprocessing
+      ↓
+7. Encoding
+      ↓
+8. Scaling
+      ↓
+9. Machine Learning
+```
+
+---
+
+# 85. একদম Short Memory Map
+
+শেষ মুহূর্তে revision করার সময় শুধু এটা দেখলেও পুরো topic মনে পড়বে:
+
+```text
+AI
+│
+├── ML
+│   └── Neural Network
+│       └── Deep Learning
+│
+└── Data
+    │
+    ├── Load
+    │
+    ├── Explore
+    │   ├── head()
+    │   ├── shape
+    │   ├── info()
+    │   └── describe()
+    │
+    ├── Clean
+    │   ├── Missing Values
+    │   └── Duplicates
+    │
+    ├── Transform
+    │   └── Encoding
+    │
+    ├── Scale
+    │   ├── Normalization
+    │   └── Standardization
+    │
+    ├── Filter
+    │
+    └── ML Model
+```
+
+---
+
+# 86. One-Line Cheat Sheet
+
+```text
+AI
+→ Machine-কে intelligent কাজ করানো।
+
+ML
+→ Data থেকে machine-এর pattern শেখা।
+
+DL
+→ Multiple-layer neural network based learning।
+
+Dataset
+→ অনেকগুলো related data-এর collection।
+
+Data Preprocessing
+→ Model-এর আগে data clean ও prepare করা।
+
+NumPy
+→ Numerical/Array/Matrix কাজ।
+
+Pandas
+→ Dataset/Table কাজ।
+
+Matplotlib
+→ Graph/Chart তৈরি।
+
+DataFrame
+→ Pandas-এর table।
+
+head()
+→ প্রথম কয়েকটি row।
+
+shape
+→ rows এবং columns।
+
+info()
+→ Dataset-এর structure/info।
+
+describe()
+→ Numerical statistics।
+
+isnull().sum()
+→ Missing value count।
+
+dropna()
+→ Missing row/values remove।
+
+fillna()
+→ Missing value fill।
+
+duplicated()
+→ Duplicate check।
+
+drop_duplicates()
+→ Duplicate remove।
+
+LabelEncoder
+→ Category → Number।
+
+MinMaxScaler
+→ Values → 0 থেকে 1 range।
+
+Filtering
+→ Condition অনুযায়ী data select।
+```
+
+---
+
+# 87. Final Understanding
+
+এই Lab-এর সবচেয়ে বড় concept হলো:
+
+> **AI model বানানোর আগে data-কে বুঝতে এবং ঠিকভাবে prepare করতে হয়।**
+
+তাই পুরো Lab-কে শুধু এই sentence দিয়ে মনে রাখতে পারো:
+
+```text
+DATA
+ ↓
+LOAD
+ ↓
+UNDERSTAND
+ ↓
+CLEAN
+ ↓
+TRANSFORM
+ ↓
+SCALE
+ ↓
+FILTER
+ ↓
+READY FOR MACHINE LEARNING
+```
+
+আর Python-এর দিক থেকে:
+
+```text
+NumPy
+→ Calculation
+
+Pandas
+→ Data
+
+Matplotlib
+→ Visualization
+
+Scikit-learn
+→ Preprocessing / ML
+```
+
+**এই foundation ভালোভাবে বুঝে ফেললে পরের AI Lab-এর Machine Learning part অনেক সহজ লাগবে।**
